@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@theme {
+  --color-kaspa: #70c7ba;
+  --color-kaspa-dark: #4a8f85;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+}
+
+@layer base {
+  html,
+  body {
+    height: 100%;
+  }
+
+  body {
+    /* mantém suas seleções e texto */
+    @apply text-slate-900 selection:bg-kaspa/30 selection:text-kaspa-dark;
+
+    /* NOVO: fundo com degradê + glows sutis */
+    background:
+      radial-gradient(900px circle at 20% 8%, rgba(112, 199, 186, 0.22), transparent 60%),
+      radial-gradient(700px circle at 85% 0%, rgba(14, 165, 233, 0.12), transparent 55%),
+      linear-gradient(180deg, #f6fbfa 0%, #eaf7f2 55%, #ffffff 100%);
+
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+
+  /* NOVO: granulado sutil (100% CSS, sem data-uri) */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+
+    background-image:
+      repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.06) 0 1px, transparent 1px 3px),
+      repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.05) 0 1px, transparent 1px 4px),
+      radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.35), transparent 35%),
+      radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.25), transparent 40%);
+
+    opacity: 0.06; /* intensidade do grão */
+    mix-blend-mode: overlay;
+  }
+
+  /* garante que o app fique acima do granulado */
+  #root {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.glass-card {
+  @apply bg-white/80 border border-slate-200 backdrop-blur-md rounded-3xl shadow-sm hover:shadow-md transition-all duration-300;
+}
+
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-kaspa to-emerald-500;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  @apply bg-slate-50 rounded-full;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-slate-200 rounded-full hover:bg-kaspa/40 transition-colors;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
